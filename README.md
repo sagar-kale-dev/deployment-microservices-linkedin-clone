@@ -79,5 +79,12 @@ the dashboard will open in your default browser.
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/be17e5df-7200-4a48-9c06-3d0b288f25de" />
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/590a841b-6296-474d-b528-16425dfb7746" />
 
-## Additional Notes 
-Ensure Minikube and Docker Desktop are installed and running.djust your Kubernetes manifests if needed before applying.or faster packaging, Maven skips tests with `-DskipTests`; remove this option if you want to run tests.
+## Accessing Services in Minikube via Port Forward
+
+When running Minikube using Docker as the driver, sometimes the Minikube IP is not directly accessible in the browser. In this scenario, we can use `kubectl port-forward` to access Kubernetes services locally.
+
+**Command Used:**
+
+```bash
+kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
+```
