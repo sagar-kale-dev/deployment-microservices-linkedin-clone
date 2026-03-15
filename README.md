@@ -89,3 +89,76 @@ When running Minikube using Docker as the driver, sometimes the Minikube IP is n
 ```bash
 kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
 ```
+## Jenkins CI/CD Pipeline for Project
+
+Sample demonstration for the **CI/CD flow using Jenkins**, including automatic build, Docker image push, and deployment to Kubernetes using Minikube.
+
+
+### Prerequisites
+
+- **Jenkins** installed and running.
+- **Docker** installed on the Jenkins agent or build machine.
+- Logged in to **Docker Hub**:
+
+```bash
+docker login
+```
+
+- Kubernetes cluster accessible (Minikube, kind, or remote cluster).
+
+### CI/CD Pipeline Flow
+
+1. **Checkout Source Code**  
+   Jenkins pulls the latest code from your Git repository.
+
+2. **Build & Push Docker Image**  
+   The Maven command uses the jlib Google plugin to automatically build the project and push the Docker image to Docker Hub:
+
+```bash
+./mvnw clean package -DskipTests
+```
+
+⚠️ **Important:** You must be logged in to Docker Hub (`docker login`) before running this command. Otherwise, the push will fail.
+
+3. **Deploy to Kubernetes**  
+   Apply all Kubernetes manifests from the `k8s/` directory:
+
+```bash
+kubectl apply -f k8s/
+```
+
+4. **Verify Deployment**  
+   Check pods and deployments:
+
+```bash
+git get pods
+git get deployments
+```
+  
+Access services via Minikube dashboard or port-forwarding if needed.
+
+### Sample Jenkinsfile For User Service Deployment
+```groovy
+pipeline {
+    agent any;
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/sagar-kale-dev/deployment-microservices-linkedin-clone.git'
+            }
+        }
+        stage('Build & Push Docker') {
+            steps {
+                dir('users-service') {
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s/users-service.yml'
+            }
+        }
+    }
+}
+```
