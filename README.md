@@ -68,6 +68,7 @@ the dashboard will open in your default browser.
 
 ## 5. Test Result - Screenshots (Postman & Kafka UI)
 
+<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/92041297-2a7d-4625-ba7b-ef1c28b58bbe" />
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/a05ac167-7dee-413d-9c9e-b867453ebe24" />
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/c7b69ba9-ee3b-4cfb-9c44-a3718e82f630" />
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/567458dc-1dc9-418f-98df-d462ac8734cb" />
